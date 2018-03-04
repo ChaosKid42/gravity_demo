@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de"> 
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Demonstration der Gravitation</title>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600" style="background-color:#333"></canvas> 
+<br><input id="kreisteile" type="text" value="32">
+<br><input id="intervall" type="text" value="1000">
+<br><input type="button" value="Start" onclick="init()" />
+<script>
+var bahnradius = 149598022.96;
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = Math.min(canvas.height, canvas.width)  / 2;
+var dFaktor = 0.9*radius / bahnradius;
+var x = null;
+var y = null;
+var xold = null;
+var yold = null;
+var intervallId = null;
+var wDelta = null;
+var winkel = null;
+var intervall = null;
+
+function init () {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  x = bahnradius;
+  y = 0;
+  xold = bahnradius;
+  yold = 0;
+  wDelta = null;
+  winkel = 0;
+  intervall = null;
+  if (intervallId) {
+    clearInterval(intervallId);
+  }
+  intervallId = setInterval(drawPlanet, document.getElementById('intervall').value);
+  wDelta = Math.PI*2/document.getElementById('kreisteile').value;
+  drawSun();
+}
+
+function nextPoint () {
+  winkel += wDelta;
+  x = Math.cos(winkel)*bahnradius;
+  y = Math.sin(winkel)*bahnradius;
+}
+
+function drawSun() {
+  drawCircle(0, 0, radius*0.1, 'yellow')
+}
+
+function drawPlanet() {
+  drawCircle(x*dFaktor, -1*y*dFaktor, radius*0.05*1.05, '#333');
+  ctx.beginPath();
+  ctx.moveTo(xold*dFaktor, -1*yold*dFaktor);
+  ctx.lineTo(x*dFaktor, -1*y*dFaktor);
+  ctx.stroke();  
+  xold = x
+  yold = y
+
+  nextPoint(); 
+  
+  drawCircle(x*dFaktor, -1*y*dFaktor, radius*0.05, 'blue');
+}
+
+function drawCircle(x, y, radius, color) {
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, 2*Math.PI);
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+
+</script>
+</body> 
+</html>
