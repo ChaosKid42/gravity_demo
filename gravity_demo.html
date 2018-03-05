@@ -23,7 +23,6 @@ var yold = null;
 var intervallId = null;
 var wDelta = null;
 var winkel = null;
-var intervall = null;
 
 function init () {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -35,9 +34,7 @@ function init () {
   y = 0;
   xold = bahnradius;
   yold = 0;
-  wDelta = null;
   winkel = 0;
-  intervall = null;
   if (intervallId) {
     clearInterval(intervallId);
   }
