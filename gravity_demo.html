@@ -56,7 +56,7 @@ function drawSun() {
 }
 
 function drawPlanet() {
-  ctx.clearRect(x-erdradius, y-erdradius, 2*erdradius, 2*erdradius)
+  ctx.clearRect(x-erdradius-ctx.lineWidth, y-erdradius-ctx.lineWidth, 2*(erdradius+ctx.lineWidth), 2*(erdradius+ctx.lineWidth))
   ctx.beginPath();
   ctx.moveTo(xold, yold);
   ctx.lineTo(x, y);
