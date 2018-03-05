@@ -55,7 +55,7 @@ function drawSun() {
 }
 
 function drawPlanet() {
-  drawCircle(x*dFaktor, -1*y*dFaktor, radius*0.05*1.05, '#333');
+  ctx.clearRect(x*dFaktor-radius*0.05, -1*y*dFaktor-radius*0.05, 2*radius*0.05, 2*radius*0.05)
   ctx.beginPath();
   ctx.moveTo(xold*dFaktor, -1*yold*dFaktor);
   ctx.lineTo(x*dFaktor, -1*y*dFaktor);
