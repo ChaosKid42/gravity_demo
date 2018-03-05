@@ -15,7 +15,6 @@ var bahnradius = 149598022.96;
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius = Math.min(canvas.height, canvas.width)  / 2;
-var dFaktor = 0.9*radius / bahnradius;
 var x = null;
 var y = null;
 var xold = null;
@@ -29,6 +28,8 @@ function init () {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.translate(canvas.width / 2, canvas.height / 2);
+  var dFaktor = 0.9* radius / bahnradius;
+  ctx.scale(dFaktor, -dFaktor);
   x = bahnradius;
   y = 0;
   xold = bahnradius;
@@ -51,21 +52,21 @@ function nextPoint () {
 }
 
 function drawSun() {
-  drawCircle(0, 0, radius*0.1, 'yellow')
+  drawCircle(0, 0, bahnradius*0.1, 'yellow')
 }
 
 function drawPlanet() {
-  ctx.clearRect(x*dFaktor-radius*0.05, -1*y*dFaktor-radius*0.05, 2*radius*0.05, 2*radius*0.05)
+  ctx.clearRect(x-bahnradius*0.05, y-bahnradius*0.05, 2*bahnradius*0.05, 2*bahnradius*0.05)
   ctx.beginPath();
-  ctx.moveTo(xold*dFaktor, -1*yold*dFaktor);
-  ctx.lineTo(x*dFaktor, -1*y*dFaktor);
+  ctx.moveTo(xold, yold);
+  ctx.lineTo(x, y);
   ctx.stroke();  
   xold = x
   yold = y
 
   nextPoint(); 
   
-  drawCircle(x*dFaktor, -1*y*dFaktor, radius*0.05, 'blue');
+  drawCircle(x, y, bahnradius*0.05, 'blue');
 }
 
 function drawCircle(x, y, radius, color) {
