@@ -16,7 +16,6 @@ var sonnenradius= bahnradius*0.1;
 var erdradius = bahnradius*0.05;
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var radius = Math.min(canvas.height, canvas.width)  / 2;
 var x = null;
 var y = null;
 var xold = null;
@@ -30,7 +29,7 @@ function init () {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.translate(canvas.width / 2, canvas.height / 2);
-  var dFaktor = 0.9* radius / bahnradius;
+  var dFaktor = 0.45 * Math.min(canvas.height, canvas.width) / bahnradius;
   ctx.scale(dFaktor, -dFaktor);
   x = bahnradius;
   y = 0;
