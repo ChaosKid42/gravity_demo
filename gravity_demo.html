@@ -12,6 +12,8 @@
 <br><input type="button" value="Start" onclick="init()" />
 <script>
 var bahnradius = 149598022.96;
+var sonnenradius= bahnradius*0.1;
+var erdradius = bahnradius*0.05;
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius = Math.min(canvas.height, canvas.width)  / 2;
@@ -52,11 +54,11 @@ function nextPoint () {
 }
 
 function drawSun() {
-  drawCircle(0, 0, bahnradius*0.1, 'yellow')
+  drawCircle(0, 0, sonnenradius, 'yellow')
 }
 
 function drawPlanet() {
-  ctx.clearRect(x-bahnradius*0.05, y-bahnradius*0.05, 2*bahnradius*0.05, 2*bahnradius*0.05)
+  ctx.clearRect(x-erdradius, y-erdradius, 2*erdradius, 2*erdradius)
   ctx.beginPath();
   ctx.moveTo(xold, yold);
   ctx.lineTo(x, y);
@@ -66,7 +68,7 @@ function drawPlanet() {
 
   nextPoint(); 
   
-  drawCircle(x, y, bahnradius*0.05, 'blue');
+  drawCircle(x, y, erdradius, 'blue');
 }
 
 function drawCircle(x, y, radius, color) {
